@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Audio Puzzle</title>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="https://dl.dropboxusercontent.com/s/8zidfxmwp2bldq6/thumb.css?dl=0">
+  </head>
+
+  <body>
+    <h1>26 Seconds Long</h1>
+    <p>The final solution is a word. But slide the audio pieces that are under the original left and right to fill in the gaps in the song first!</p>
+
+    <!--text field for user to submit their answer + submit button-->
+      <p><b>Enter your answer here:</b> <input id="word">
+    <button type="submit" onclick="checkAnswer()">Submit</button></p>
+
+    <!--tells user if they're correct or not-->
+    <p id="message"></p>
+
+    <!--checks the answer submitted-->
+    <script>
+    function checkAnswer() {
+        var ans, text, correctAnswer;
+        correctAnswer = "MUSIC";
+
+        // Get the answer of the input field with id="quote"
+        ans = document.getElementById("word").value;
+
+        // If the user entered the correct quote
+        if (ans.toUpperCase() == correctAnswer) {
+            text = "Congrats! You're correct! :)";
+            parent.postMessage("gameOver:2:85","*");
+        } else {
+            text = "Incorrect. Please try again :(";
+        }
+        document.getElementById("message").innerHTML = text;
+    }
+    </script>
+
+    <div id="hint">
+      <!--hint button-->
+      <button type="hint" onclick="revealHint()">Hints</button>
+
+      <!--the hints will appear here-->
+      <p id="message1"></p>
+      <p id="message2"></p>
+      <p id="message3"></p>
+
+      <!--Hint function-->
+      <script>
+      var count, hint1, hint2, hint3;
+      count = 0;
+      hint1 = "1. Don't know the song? It's Beethoven's Fur Elise.";
+      hint2 = "2. You need to know the time (to the nearest second) of the song at which each piece is placed and use that in combination with the alphabet somehow. Notice that the piece is purposely 26 seconds long.";
+      hint3 = "3. Time 0:01 = 'A', Time 0:02 = 'B', etc.";
+      function revealHint() {
+        count++;
+        switch (count) {
+          case 1:
+            document.getElementById("message1").innerHTML = hint1;
+            break;
+
+          case 2:
+            document.getElementById("message2").innerHTML = hint2;
+            break;
+
+          case 3:
+            document.getElementById("message3").innerHTML = hint3;
+        }
+      }
+      </script>
+    </div>
+
+    <div id="audio">
+        <br>
+
+<!--play and stop buttons-->
+    <button id="play" onclick="playDelay()">PLAY</button>
+    <button id="reset" onclick="allStop()">RESET</button><br>
+
+    <!--Image of vertical bar to indicate progress of music playing-->
+    <p>Original:<img src="https://dl.dropboxusercontent.com/s/oca963wgis8sr6f/bar.png?dl=0" id='bar' style="position:absolute; left: 84px; top: 245px">
+      <img hspace=14px src="https://dl.dropboxusercontent.com/s/pdfwdhy0tlf0i8m/original.png?dl=0"><br>
+      <input style="width: 5%" onclick="mute(this.id)" type="button" value="Mute" id="button0" /></p>
+
+
+      <!--Audio pieces on sliders with mute buttons-->
+      <audio id="original">
+        <source src="https://dl.dropboxusercontent.com/s/umwfd37tokmxpmv/puzzle1-original.wav?dl=0"></audio>
+
+      <p><br>1.
+      <audio id="piece1">
+        <source src="https://dl.dropboxusercontent.com/s/qlpmct9rjytgaxx/puzzle1-piece1.wav?dl=0"></audio><br>
+          <input style="width: 5%" onclick="mute(this.id)" type="button" value="Mute" id="button1" />
+      <input style="width: 1135px; margin-left: 5px;" id="1" type="range" min="0" max="25.7" value="0" step="0.1" oninput="showValue(this.id, this.value)" />
+      <span id="range1">0</span><br></p>
+
+      <p><br>2.
+        <audio id="piece2">
+        <source src="https://dl.dropboxusercontent.com/s/bruazyidtw2y086/puzzle1-piece2.wav?dl=0"></audio><br>
+        <input style="width: 5%" onclick="mute(this.id)" type="button" value="Mute" id="button2" />
+    <input style="width: 1135px; margin-left: 5px;" id="2" type="range" min="0" max="25.7" value="0" step="0.1" oninput="showValue(this.id, this.value)" />
+    <span id="range2">0</span><br></p>
+
+    <p><br>3.
+      <audio id="piece3">
+      <source src="https://dl.dropboxusercontent.com/s/ld86k6sek0cfd0b/puzzle1-piece3.wav?dl=0"></audio><br>
+        <input style="width: 5%" onclick="mute(this.id)" type="button" value="Mute" id="button3" />
+    <input style="width: 1135px; margin-left: 5px;" id="3" type="range" min="0" max="25.7" value="0" step="0.1" oninput="showValue(this.id, this.value)" />
+    <span id="range3">0</span><br></p>
+
+    <p><br>4.
+    <audio id="piece4">
+      <source src="https://dl.dropboxusercontent.com/s/k25od0mzoq46i9f/puzzle1-piece4.wav?dl=0"></audio><br>
+        <input style="width: 5%" onclick="mute(this.id)" type="button" value="Mute" id="button4" />
+    <input style="width: 1135px; margin-left: 5px;" id="4" type="range" min="0" max="25.7" value="0" step="0.1" oninput="showValue(this.id, this.value)" />
+    <span id="range4">0</span><br></p>
+
+    <p><br>5.
+      <audio id="piece5">
+      <source src="https://dl.dropboxusercontent.com/s/37cryp82fkup1ot/puzzle1-piece5.wav?dl=0"></audio><br>
+        <input style="width: 5%" onclick="mute(this.id)" type="button" value="Mute" id="button5" />
+    <input style="width: 1135px; margin-left: 5px;" id="5" type="range" min="0" max="25" value="0" step="0.1" oninput="showValue(this.id, this.value)" />
+    <span id="range5">0</span><br></p>
+
+      <script>
+      // functionality of all buttons
+      var p1 = document.getElementById('piece1');
+      var p2 = document.getElementById('piece2');
+      var p3 = document.getElementById('piece3');
+      var p4 = document.getElementById('piece4');
+      var p5 = document.getElementById('piece5');
+      var pieces = [];
+
+      // displays what second the piece that was slid is at
+      function showValue(idNumber, newValue)
+      {
+      	document.getElementById("range"+idNumber).innerHTML=newValue;
+      }
+
+      // plays piece of audio when the corresponding play button is clicked
+      function playPiece(pieceNumber)
+      {
+        document.getElementById(pieceNumber).play();
+      }
+
+      // delay playing the audio by however many seconds specified by the slider
+      function playDelay()
+      {
+        document.getElementById("play").disabled = true;
+        playPiece('original');
+        pieces.push(setTimeout("p1.play()", (document.getElementById("range1").innerHTML)*1000));
+        pieces.push(setTimeout("p2.play()", (document.getElementById("range2").innerHTML)*1000));
+        pieces.push(setTimeout("p3.play()", (document.getElementById("range3").innerHTML)*1000));
+        pieces.push(setTimeout("p4.play()", (document.getElementById("range4").innerHTML)*1000));
+        pieces.push(setTimeout("p5.play()", (document.getElementById("range5").innerHTML)*1000));
+
+        timer();
+      }
+
+      // checks to see if track is already muted, if not mute, if yes unmute
+      function mute(id) {
+        if (document.getElementById(id).value == "Mute") {
+          switch (id) {
+            case "button0":
+              document.getElementById("original").muted = true;
+              document.getElementById(id).value = "Unmute";
+              break;
+            case "button1":
+              p1.muted = true;
+              document.getElementById(id).value = "Unmute";
+              break;
+            case "button2":
+                p2.muted = true;
+                document.getElementById(id).value = "Unmute";
+                break;
+            case "button3":
+                  p3.muted = true;
+                  document.getElementById(id).value = "Unmute";
+                  break;
+            case "button4":
+                    p4.muted = true;
+                    document.getElementById(id).value = "Unmute";
+                    break;
+            case "button5":
+                      p5.muted = true;
+                      document.getElementById(id).value = "Unmute";
+                      break;
+                }
+            }
+            else {
+              switch (id) {
+                case "button0":
+                  document.getElementById("original").muted = false;
+                  document.getElementById(id).value = "Mute";
+                  break;
+                case "button1":
+                  p1.muted = false;
+                  document.getElementById(id).value = "Mute";
+                  break;
+                case "button2":
+                    p2.muted = false;
+                    document.getElementById(id).value = "Mute";
+                    break;
+                case "button3":
+                      p3.muted = false;
+                      document.getElementById(id).value = "Mute";
+                      break;
+                case "button4":
+                        p4.muted = false;
+                        document.getElementById(id).value = "Mute";
+                        break;
+                case "button5":
+                          p5.muted = false;
+                          document.getElementById(id).value = "Mute";
+                          break;
+                    }
+            }
+      }
+
+      // when stop button is pushed, every track will stop playing (not pause)
+      function allStop() {
+        document.getElementById("play").disabled = false;
+        for (i = 0; i < pieces.length; i++) {
+          clearTimeout(pieces[i]); }
+
+        document.getElementById('original').pause();
+        document.getElementById('original').currentTime=0;
+
+        reset1();
+      }
+
+      // return vertical bar to starting position
+      function reset1(){
+        clearTimeout(my_time);
+        document.getElementById('bar').style.left= "84px";
+        document.getElementById('bar').style.top= "245px";
+        document.getElementById('bar').style.display = 'block';
+      }
+
+      // determines how far vertical bar across screen
+      function disp(){
+        var step=2; // Change this step value
+        var x=document.getElementById('bar').offsetLeft;
+
+        if(x < 1220){x = x + step;
+          document.getElementById('bar').style.left= x + "px"; // horizontal movement
+        } else {
+          document.getElementById('bar').style.display = 'none';
+        }
+      }
+
+      // start the vertical bar accordingly
+      function timer(){
+        disp();
+        var y=document.getElementById('bar').offsetTop;
+        var x=document.getElementById('bar').offsetLeft;
+        my_time=setTimeout('timer()', 45);
+      }
+
+      </script>
+    </div>
+  </body>
